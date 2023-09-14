@@ -1,26 +1,23 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import Header from "@/src/components/header";
+import * as React from 'react';
+import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
+import Header from "@/components/Header";
+import StickyFooter from "@/components/StickyFooter";
 
-const inter = Inter({ subsets: ['latin'] })
+export const metadata = {
+    title: 'Luca Home',
+    description: 'Lucas home page',
+};
 
-export const metadata: Metadata = {
-  title: 'Luca Home',
-  description: 'Homepage with different functionality',
-}
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-      <Header />
-      {children}
-      </body>
-    </html>
-  )
+export default function RootLayout({children}: { children: React.ReactNode }) {
+    return (
+        <html lang="en">
+        <body>
+        <ThemeRegistry>
+            <Header/>
+            {children}
+            <StickyFooter/>
+        </ThemeRegistry>
+        </body>
+        </html>
+    );
 }
