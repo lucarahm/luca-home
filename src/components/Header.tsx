@@ -73,18 +73,6 @@ export default function Header() {
                     </Typography>
                 </Link>
 
-                <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                    {pages.map((page) => (
-                        <Button
-                            key={page.text}
-                            onClick={() => router.push(page.href)}
-                            sx={{ml: 4, color: 'inherit', display: 'block'}}
-                        >
-                            {page.text}
-                        </Button>
-                    ))}
-                </Box>
-
                 {/*Menu for mobile view*/}
                 {/*1. Hamburger menu on the left*/}
                 <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
@@ -124,11 +112,9 @@ export default function Header() {
                     </Menu>
                 </Box>
 
-
                 <Link href="/" style={{textDecoration: "none", color: "inherit"}}>
                     <CoffeeIcon
                         sx={{
-                            flexGrow: 1,
                             mr: 1,
                             display: {xs: 'flex', md: 'none'},
                         }}
@@ -139,16 +125,31 @@ export default function Header() {
                         variant="h5"
                         noWrap
                         sx={{
-                            mr: 2,
+                            mr: 8,
                             display: {xs: 'flex', md: 'none'},
                             flexGrow: 1,
                             fontWeight: 500,
+                            color: 'inherit',
                             textDecoration: 'none',
                         }}
                     >
                         LucaHome
                     </Typography>
                 </Link>
+
+
+                <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+                    {pages.map((page) => (
+                        <Button
+                            key={page.text}
+                            onClick={() => router.push(page.href)}
+                            sx={{ml: 4, color: 'inherit', display: 'block'}}
+                        >
+                            {page.text}
+                        </Button>
+                    ))}
+                </Box>
+
 
                 <Box sx={{flexGrow: 0}}>
                     <Tooltip title="Open settings">
