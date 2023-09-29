@@ -13,7 +13,9 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
         <html lang="en">
         <body>
         <ThemeRegistry>
-            <Header/>
+            <nav>
+                <Header/>
+            </nav>
             {children}
             <StickyFooter/>
         </ThemeRegistry>
