@@ -1,7 +1,7 @@
 import * as React from 'react';
-import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
-import Header from "@/components/Header";
-import StickyFooter from "@/components/StickyFooter";
+import ThemeRegistry from "../components/ThemeRegistry/ThemeRegistry";
+import Header from "../components/Header";
+import StickyFooter from "../components/StickyFooter";
 
 export const metadata = {
     title: 'Luca Home',

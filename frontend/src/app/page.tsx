@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-import MediaCard from '@/components/MediaCard';
+import MediaCard from '../components/MediaCard';
 
 export default function HomePage() {
     return (
