@@ -1,7 +1,8 @@
 # Raspberry
 
 This is the directory for the raspberry pi 4 code. To install all the drivers for the LCD Display follow the
-installation guide down below!
+installation guide down below!  
+**For further information check out my fork of the *lcd* repository here: [py-lcd](https://github.com/lucarahm/py-lcd)**
 
 # Table of Contents
 
