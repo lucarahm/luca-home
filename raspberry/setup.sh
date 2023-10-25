@@ -164,6 +164,15 @@ fi
 
 message "Enabling I2C on boot." 'INFO'; i2c_boot_config
 
+if pip3 install -r requirements.txt; then
+  message "Installing pip3 requirements" 'INFO'
+else
+  message "There was a problem install the pip3 requirements" 'ERROR'
+  end 'Missing pip3 packages' 1
+fi
+
+
+
 echo "#################################################################"
 echo "# All finished! Press any key to REBOOT now or Ctrl+c to abort. #"
 echo "#################################################################"
