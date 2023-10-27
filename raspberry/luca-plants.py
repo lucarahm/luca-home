@@ -9,8 +9,6 @@ from adafruit_pcf8591.analog_out import AnalogOut
 
 import RPi.GPIO as GPIO
 
-# from picamera import PiCamera
-
 PUMPE1 = 17
 
 
