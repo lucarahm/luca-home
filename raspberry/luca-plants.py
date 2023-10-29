@@ -66,7 +66,6 @@ if __name__ == '__main__':
                 "temp": temp_dht22,
                 "air_humidity": humidity_dht22,
                 "soil_moisture": moisture_a3,
-                "timestamp": datetime.timestamp(datetime.now()),
             }
 
             client.publish("topic/sensor-data", json.dumps(data))
