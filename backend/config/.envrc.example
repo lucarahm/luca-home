@@ -1,0 +1,6 @@
+MQTT_BROKER_HOST=mqtt-broker-hostname
+MQTT_USERNAME=my_username
+MQTT_PASSWORD=my_password
+
+MONGODB_URI=your_mongodb_uri
+MONGODB_NAME=your_mongodb_database_name
