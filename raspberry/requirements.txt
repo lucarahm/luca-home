@@ -1,0 +1,5 @@
+adafruit-circuitpython-pcf8591
+adafruit-circuitpython-dht
+paho-mqtt
+
+# APT install python3-smbus
