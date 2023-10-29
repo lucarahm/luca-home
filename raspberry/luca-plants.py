@@ -6,8 +6,10 @@ import board
 import adafruit_pcf8591.pcf8591 as PCF
 from adafruit_pcf8591.analog_in import AnalogIn
 from adafruit_pcf8591.analog_out import AnalogOut
-
 import RPi.GPIO as GPIO
+import paho.mqtt.client as mqtt
+import json
+
 
 PUMPE1 = 17
 
@@ -34,18 +36,42 @@ if __name__ == '__main__':
     pcf_in_0 = AnalogIn(pcf, PCF.A0)
     pcf_in_3 = AnalogIn(pcf, PCF.A3)
 
+    # MQTT
+    MQTT_BROKER_HOST = "130.61.205.59"
+    MQTT_USERNAME = "test"
+    MQTT_PASSWORD = "3515"
+
+    client = mqtt.Client()
+    client.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)
+    client.connect(MQTT_BROKER_HOST, 1883)
+
+    display_is_on = False
+
     while True:
         try:
             print("Writing to display")
 
             temp_dht22 = sensor_dht22.temperature
             humidity_dht22 = sensor_dht22.humidity
-            moisture_a3 = AnalogIn(pcf, PCF.A3)
+            moisture_a3 = AnalogIn(pcf, PCF.A3).value
 
-            display.lcd_display_string(f"Temp: {temp_dht22}C", 1)  # Write line of text to first line of display
-            display.lcd_display_string(f"Humidity: {temp_dht22}%", 2)  # Write line of text to first line of display
+            if display_is_on:
+                display.lcd_display_string(f"T: {temp_dht22}C M: {moisture_a3}%", 1)  # Write line of text to first line of display
+                display.lcd_display_string(f"Humidity: {humidity_dht22}%", 2)  # Write line of text to first line of display
+            else:
+                display.lcd_clear()
 
-            sleep(2)
+            # Publish to MQTT Broker
+            data = {
+                "temp": temp_dht22,
+                "air_humidity": humidity_dht22,
+                "soil_moisture": moisture_a3,
+                "timestamp": datetime.timestamp(datetime.now()),
+            }
+
+            client.publish("topic/sensor-data", json.dumps(data))
+
+            sleep(5)
 
         except RuntimeError as error:
             # Errors happen fairly often, DHT's are hard to read, just keep going
@@ -54,7 +80,7 @@ if __name__ == '__main__':
             continue
 
         except KeyboardInterrupt:
-            # If there is a KeyboardInterrupt (when you press ctrl+c), exit the program and cleanup
+            # If there is a KeyboardInterrupt (when you press ctrl+c), exit thlucae program and cleanup
             print("Cleaning up!")
             display.lcd_clear()
             GPIO.output(PUMPE1, 1)  # turns off the pump
