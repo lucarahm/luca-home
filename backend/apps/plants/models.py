@@ -1,3 +1,4 @@
+import datetime
 import uuid
 
 from pydantic import BaseModel, Field
@@ -8,6 +9,7 @@ class SensorData(BaseModel):
     temp: float
     air_humidity: int
     soil_moisture: int
+    timestamp: datetime.datetime
 
     class Config:
         allow_population_by_field_name = True
@@ -17,6 +19,7 @@ class SensorData(BaseModel):
                 "temp": 23.5,
                 "air_humidity": 55,
                 "soil_moisture": 78,
+                "timestamp": datetime.datetime,
             }
         }
 

@@ -34,6 +34,7 @@ def connect(client, flags, rc, properties):
 @app.mqtt.on_message()
 async def message(client, topic, payload, qos, properties):
     print("Received message: ", topic, payload.decode(), qos, properties)
+    # TODO store in database
 
 
 @app.mqtt.on_disconnect()
