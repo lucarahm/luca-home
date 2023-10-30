@@ -9,8 +9,8 @@ router = APIRouter()
 @router.post("/", response_description="Add new value")
 async def create_task(request: Request, sensor_data: SensorData = Body(...)):
     sensor_data = jsonable_encoder(sensor_data)
-    new_data = await request.app.mongodb["sensor_data"].insert_one(sensor_data)
-    created_task = await request.app.mongodb["sensor_data"].find_one(
+    new_data = await request.app.collection.insert_one(sensor_data)
+    created_task = await request.app.collection.find_one(
         {"_id": new_data.inserted_id}
     )
 
@@ -20,14 +20,14 @@ async def create_task(request: Request, sensor_data: SensorData = Body(...)):
 @router.get("/", response_description="List all sensor values")
 async def list_sensor_values(request: Request):
     values = []
-    for doc in await request.app.mongodb["sensor_data"].find().to_list(length=100):
+    for doc in await request.app.collection.find().to_list(length=100):
         values.append(doc)
     return values
 
 
 @router.delete("/{id}", response_description="Delete Entry")
 async def delete_entry(id: str, request: Request):
-    delete_result = await request.app.mongodb["sensor_data"].delete_one({"_id": id})
+    delete_result = await request.app.collection.delete_one({"_id": id})
 
     if delete_result.deleted_count == 1:
         return JSONResponse(status_code=status.HTTP_204_NO_CONTENT)

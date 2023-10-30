@@ -1,9 +1,12 @@
+from datetime import datetime
+import json
 import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
-from motor.motor_asyncio import AsyncIOMotorClient
+from motor.motor_asyncio import *
 from config import settings
 from fastapi_mqtt import FastMQTT, MQTTConfig
+from fastapi.encoders import jsonable_encoder
 
 from apps.plants.routers import router as plants_router
 
@@ -34,7 +37,19 @@ def connect(client, flags, rc, properties):
 @app.mqtt.on_message()
 async def message(client, topic, payload, qos, properties):
     print("Received message: ", topic, payload.decode(), qos, properties)
-    # TODO store in database
+    data = json.loads(payload.decode())
+    data["timestamp"] = datetime.today()
+    data["metadata"] = {
+        "location": "Innsbruck",
+        "device": "RaspberryPi_4B",
+    }
+    sensor_data = data
+
+    new_data = await app.collection.insert_one(sensor_data)
+    created_task = await app.collection.find_one(
+        {"_id": new_data.inserted_id}
+    )
+    print(f"Stored in database: {created_task}")
 
 
 @app.mqtt.on_disconnect()
@@ -51,6 +66,21 @@ def subscribe(client, mid, qos, properties):
 async def startup():
     app.mongodb_client = AsyncIOMotorClient(settings.DB_URL)
     app.mongodb = app.mongodb_client[settings.DB_NAME]
+    app.collection = None
+
+    try:
+        await app.mongodb.create_collection(
+            name="sensor-data",
+            timeseries={
+                "timeField": "timestamp",
+                "metaField": "metadata",
+                "granularity": "seconds"
+            }
+        )
+    except Exception as e:
+        print(f"{e}. Continuing")
+
+    app.collection = app.mongodb["sensor-data"]
 
 
 @app.on_event("shutdown")
