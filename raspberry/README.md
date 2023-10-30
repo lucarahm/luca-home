@@ -10,7 +10,7 @@ installation guide down below!
 2. [Implementation](#Implementation)
     - [Systemd](#systemd)
 
-# Installation
+# ~~Installation~~ (Deprecated)
 
 - Install git
   ```
