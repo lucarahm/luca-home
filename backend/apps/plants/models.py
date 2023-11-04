@@ -1,7 +1,11 @@
-import datetime
+from datetime import datetime, timezone
 import uuid
 
 from pydantic import BaseModel, Field
+
+
+def datetime_now() -> datetime:
+    return datetime.now(timezone.utc)
 
 
 class SensorData(BaseModel):
@@ -10,7 +14,7 @@ class SensorData(BaseModel):
     temp: float
     air_humidity: int
     soil_moisture: int
-    timestamp: datetime.datetime
+    timestamp: datetime
 
     class Config:
         allow_population_by_field_name = True
@@ -24,8 +28,6 @@ class SensorData(BaseModel):
                 "temp": 23.5,
                 "air_humidity": 55,
                 "soil_moisture": 78,
-                "timestamp": datetime.datetime,
+                "timestamp": "2023-10-30T00:56:45.610+00:00",
             }
         }
-
-

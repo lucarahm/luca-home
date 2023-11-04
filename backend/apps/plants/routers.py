@@ -6,23 +6,18 @@ from fastapi.encoders import jsonable_encoder
 router = APIRouter()
 
 
-@router.post("/", response_description="Add new value")
-async def create_task(request: Request, sensor_data: SensorData = Body(...)):
-    sensor_data = jsonable_encoder(sensor_data)
-    new_data = await request.app.collection.insert_one(sensor_data)
-    created_task = await request.app.collection.find_one(
-        {"_id": new_data.inserted_id}
-    )
-
-    return JSONResponse(status_code=status.HTTP_201_CREATED, content=created_task)
-
-
 @router.get("/", response_description="List all sensor values")
 async def list_sensor_values(request: Request):
     values = []
-    for doc in await request.app.collection.find().to_list(length=100):
+    for doc in await request.app.collection.find({}).to_list(length=100):
         values.append(doc)
     return values
+
+
+@router.get("/recent", response_description="Get the most recent sensor values")
+async def get_recent(request: Request):
+    most_recent = await request.app.collection.find_one(sort=[("timestamp", -1)])
+    return most_recent
 
 
 @router.delete("/{id}", response_description="Delete Entry")
@@ -32,6 +27,13 @@ async def delete_entry(id: str, request: Request):
     if delete_result.deleted_count == 1:
         return JSONResponse(status_code=status.HTTP_204_NO_CONTENT)
     raise HTTPException(status_code=404, detail=f"Entry {id} not found")
+
+
+@router.delete("/many", response_description="Delete Many")
+async def delete_entry(request: Request):
+    delete_result = await request.app.collection.delete_many({})
+    if delete_result.deleted_count != 0:
+        return JSONResponse(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @router.get("/command/{cmd}", response_description="Send command to command topic")

@@ -1,3 +1,4 @@
+import uuid
 from datetime import datetime
 import json
 import uvicorn
@@ -37,12 +38,13 @@ def connect(client, flags, rc, properties):
 @app.mqtt.on_message()
 async def message(client, topic, payload, qos, properties):
     print("Received message: ", topic, payload.decode(), qos, properties)
-    data = json.loads(payload.decode())
+    data: SensorData = json.loads(payload.decode())
     data["timestamp"] = datetime.today()
     data["metadata"] = {
         "location": "Innsbruck",
         "device": "RaspberryPi_4B",
     }
+    data["_id"] = uuid.uuid4().__str__()
     sensor_data = data
 
     new_data = await app.collection.insert_one(sensor_data)
