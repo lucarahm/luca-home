@@ -13,4 +13,4 @@ ufw status
 
 ### Deployment of containers for services:
 
-https://github.com/nginx-proxy/acme-companions
+https://github.com/nginx-proxy/acme-companion
