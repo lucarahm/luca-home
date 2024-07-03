@@ -1,5 +1,15 @@
 # Svelte Frontend
 
+## Underling technologies
+### JS-Frameworks:
+* Svelte Kit \[[docs](https://kit.svelte.dev/docs/introduction)\]
+ 
+### Other
+* uses [shadcn-svelte](https://www.shadcn-svelte.com/) for pre-styled components.
+* tailwind css
+* [superforms](https://superforms.rocks/) for all things related to forms
+* [Formsnap](https://formsnap.dev/docs/quick-start) to make superforms even better
+
 ## Developing
 
 If you freshly cloned the project please run `npm install` first to load all the dependencies.
@@ -47,5 +57,4 @@ docker run --detach \
 --env "LETSENCRYPT_HOST=luca-home.de" \
 --env "VIRTUAL_PORT=3000" \
 svelte-frontend
-
 ```

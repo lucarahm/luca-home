@@ -6,6 +6,7 @@
     import {Label} from "$lib/components/ui/label";
     import {Input} from '$lib/components/ui/input'
     import {Button} from '$lib/components/ui/button'
+    import {dev} from "$app/environment";
 
     export let data;
 
@@ -17,7 +18,9 @@
     const {form: formData, enhance: enhance, message: message, errors: errors} = form;
 </script>
 
-<SuperDebug data={formData}/>
+{#if dev}
+    <SuperDebug data={formData}/>
+{/if}
 
 {#if $message}<h3>{$message}</h3>{/if}
 
@@ -45,7 +48,6 @@
             </Field>
             {#if $errors?.username}<span class="text-red-600 text-xs">{$errors.username}</span>{/if}
         </div>
-
         <div>
             <Field {form} name="password">
                 <Control let:attrs>
@@ -65,5 +67,4 @@
             <Button class="w-full">Sign in</Button>
         </div>
     </form>
-
 </div>
