@@ -1,0 +1,2 @@
+# Do not upload idea folder to git
+.idea/*

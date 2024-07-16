@@ -9,6 +9,7 @@
 * tailwind css
 * [superforms](https://superforms.rocks/) for all things related to forms
 * [Formsnap](https://formsnap.dev/docs/quick-start) to make superforms even better
+* Lucia for authentication
 
 ## Developing
 

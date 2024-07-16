@@ -1,0 +1,1 @@
+<div class="font-bold">Welcome to the dashboard</div>
