@@ -6,6 +6,8 @@ import {findByUsername} from "$lib/database.js";
 import {verify} from "@node-rs/argon2";
 import {lucia} from "$lib/server/lucia.js";
 
+const sleep = (delay) => new Promise(resolve => setTimeout(resolve, delay));
+
 export const load = (async () => {
     const form = await superValidate(zod(loginSchema));
 
@@ -40,6 +42,7 @@ export const actions = {
         })
 
         if (!validPassword){
+            await sleep(1000)
             return setError(form, 'top', 'Username or password incorrect')
         }
         const session = await lucia.createSession(existingUser.id, {});
