@@ -1,9 +1,6 @@
 import {lucia} from "$lib/server/lucia.js";
-import {redirect} from "@sveltejs/kit";
 
 export const handle = async ({event, resolve}) => {
-    // const startTimer = Date.now();
-
     const sessionId = event.cookies.get(lucia.sessionCookieName);
 
     if (!sessionId) {
@@ -30,12 +27,5 @@ export const handle = async ({event, resolve}) => {
     event.locals.user = user;
     event.locals.session = session;
 
-    if (event.route.id?.startsWith('/(protected)')){
-        if (!user) redirect(302, '/login')
-        // if (!user.verified) redirect(302, '/login')
-    }
-
-    const response = await resolve(event);
-    // console.log(response.status, event);
-    return response;
+    return await resolve(event);
 }

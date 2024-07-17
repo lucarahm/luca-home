@@ -5,6 +5,8 @@
     import {Button} from "$lib/components/ui/button/index.js";
     import {CircleUser} from "lucide-svelte";
 
+    export let loggedIn;
+
     const public_pages = [
         {name: 'Home', href: '/',},
         {name: 'About', href: '/about',},
@@ -41,23 +43,27 @@
             <DropdownMenu.Root>
                 <DropdownMenu.Trigger asChild let:builder>
                     <Button
-                        builders={[builder]}
-                        variant="outline"
-                        size="icon"
-                        class="rounded-full"
-                        >
-                        <CircleUser class="h-5 w-5" />
+                            builders={[builder]}
+                            variant="outline"
+                            size="icon"
+                            class="rounded-full"
+                    >
+                        <CircleUser class="h-5 w-5"/>
                         <span class="sr-only">Toggle user menu</span>
                     </Button>
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Content align="end">
-                    <DropdownMenu.Label>My Account</DropdownMenu.Label>
-                    <DropdownMenu.Separator />
-                    <DropdownMenu.Item>Settings</DropdownMenu.Item>
-                    <DropdownMenu.Separator />
-                    <a href="/logout">
-                        <DropdownMenu.Item>Logout</DropdownMenu.Item>
-                    </a>
+                    {#if loggedIn}
+                        <DropdownMenu.Label>My Account</DropdownMenu.Label>
+                        <DropdownMenu.Separator/>
+                        <DropdownMenu.Item>Settings</DropdownMenu.Item>
+                        <DropdownMenu.Separator/>
+                        <DropdownMenu.Item href="/logout">Logout</DropdownMenu.Item>
+                    {:else }
+                        <DropdownMenu.Label>Not logged in</DropdownMenu.Label>
+                        <DropdownMenu.Separator/>
+                        <DropdownMenu.Item href="/login">Login</DropdownMenu.Item>
+                    {/if}
                 </DropdownMenu.Content>
             </DropdownMenu.Root>
         </div>

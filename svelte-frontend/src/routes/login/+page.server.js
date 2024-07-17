@@ -10,11 +10,13 @@ export const load = (async () => {
     const form = await superValidate(zod(loginSchema));
 
     // Always return { form } in load functions
-    return {form};
+    return {
+        form: form,
+    };
 });
 
 export const actions = {
-    default: async ({request, cookies}) => {
+    default: async ({request, cookies, url}) => {
         const form = await superValidate(request, zod(loginSchema));
         console.log(form);
 
@@ -48,6 +50,6 @@ export const actions = {
         });
 
 
-        redirect(302, "/");
+        throw redirect(303, url.searchParams.get('redirectTo')??'/');
     }
 }
