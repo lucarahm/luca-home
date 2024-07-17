@@ -32,7 +32,7 @@
                 {#each public_pages as pub_page}
                     <li class="block py-2 px-3 rounded hover:bg-slate-100 md:hover:bg-transparent"
                         class:active={currentRoute === pub_page.href}>
-                        <a href={pub_page.href} class="hover:underline rounded-lg">{pub_page.name}</a>
+                        <a href={pub_page.href} class="hover:font-bold rounded-lg">{pub_page.name}</a>
                     </li>
                 {/each}
             </ul>
@@ -59,7 +59,7 @@
                         <DropdownMenu.Item>Settings</DropdownMenu.Item>
                         <DropdownMenu.Separator/>
                         <DropdownMenu.Item href="/logout">Logout</DropdownMenu.Item>
-                    {:else }
+                    {:else}
                         <DropdownMenu.Label>Not logged in</DropdownMenu.Label>
                         <DropdownMenu.Separator/>
                         <DropdownMenu.Item href="/login">Login</DropdownMenu.Item>
@@ -69,3 +69,9 @@
         </div>
     </div>
 </nav>
+
+<style>
+    .active {
+        font-weight: bold;
+    }
+</style>

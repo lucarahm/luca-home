@@ -3,6 +3,8 @@
     import {Button} from "$lib/components/ui/button/index.js";
 
     export let data;
+
+    $: isLoggedIn = data.loggedIn
 </script>
 
 
@@ -11,7 +13,7 @@
 </h2>
 
 <div class="grid grid-cols-2 gap-4">
-    {#if !(data.loggedIn)}
+    {#if !(isLoggedIn)}
         <Card.Root class="">
             <Card.Header>
                 <Card.Title>Log in</Card.Title>
