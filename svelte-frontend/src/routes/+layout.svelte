@@ -12,7 +12,7 @@
 
 <ModeWatcher defaultMode="light"/>
 <Header loggedIn={data.loggedIn}/>
-<div class="p-4">
+<div class="p-4 max-w-screen-xl items-center mx-auto">
     <slot></slot>
 </div>
 

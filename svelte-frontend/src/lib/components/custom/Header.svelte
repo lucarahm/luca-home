@@ -18,11 +18,12 @@
 
     $: currentRoute = $page.url.pathname;
 </script>
+
 <nav class="bg-white border-gray-200 dark:bg-gray-900">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <!--            Menu for md and larger-->
         <a href="/" class="flex items-center space-x-3 mr-8">
-            <img src="./logo.png"
+            <img src="/logo.png"
                  alt="Luca-Home Logo"
                  class="h-10 dark:invert"
             >
@@ -56,7 +57,7 @@
                     {#if loggedIn}
                         <DropdownMenu.Label>My Account</DropdownMenu.Label>
                         <DropdownMenu.Separator/>
-                        <DropdownMenu.Item>Settings</DropdownMenu.Item>
+                        <DropdownMenu.Item href="/settings">Settings</DropdownMenu.Item>
                         <DropdownMenu.Separator/>
                         <DropdownMenu.Item href="/logout">Logout</DropdownMenu.Item>
                     {:else}
