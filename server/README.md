@@ -32,6 +32,12 @@ docker network create my-network
 To deploy the postgres database use the docker compose file from the `/database` subdirectory. It is **important**
 to have the postgres container in the same docker network as the frontend.
 
+After that apply the prisma migrations from the `/svelte-frontend` directory to initialize the database:
+```shell
+npx prisma migrate deploy
+npx prisma db seed
+```
+
 ### 3. Run the reverse proxy, cert bot and frontend
 
 *Make sure the Dockerimage of the svelte-frontend is already build and available from the local repository. Altenatively
@@ -41,7 +47,7 @@ Use the `compose.yaml` with docker-compose in the root of the repository.
 
 Example usage:
 
-```
+```shell
 docker compose up -d
 ```
 
