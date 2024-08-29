@@ -1,8 +1,8 @@
 <script lang="ts">
+    import {page} from "$app/stores";
     import SuperDebug, {superForm} from 'sveltekit-superforms';
     import {loginSchema} from "$lib/config/zod-schemas.js";
     import {zodClient} from "sveltekit-superforms/adapters";
-    import {Label} from "$lib/components/ui/label";
     import {Input} from '$lib/components/ui/input'
     import {dev} from "$app/environment";
     import {AlertCircle, Loader2} from "lucide-svelte";
@@ -16,6 +16,8 @@
     let showPassword = false;
     $: password = showPassword ? 'text' : 'password';
 
+    let redirect = !!$page.url.searchParams.get('redirectTo');
+
     // Client API:
     const form = superForm(data.form, {
         validators: zodClient(loginSchema),
@@ -26,10 +28,18 @@
     const {form: formData, enhance: enhance, message: message, errors: errors, delayed: delayed} = form;
 </script>
 
+{#if redirect}
+    <Alert.Root variant="destructive">
+        <AlertCircle class="h-4 w-4"/>
+        <Alert.Title>Login Required!</Alert.Title>
+        <Alert.Description>You must be signed in to access the requested Page. Please login.</Alert.Description>
+    </Alert.Root>
+
+{/if}
 
 {#if $message}<h3>{$message}</h3>{/if}
 
-{#if data.loggedIn}
+{#if data?.loggedIn}
     <div>You are already logged in.</div>
 {:else}
     <!--{#if dev}-->
