@@ -1,8 +1,7 @@
 <article class="prose prose-slate dark:prose-invert">
     <h1>Hi!</h1>
     <p>
-        My name is Luca Rahm, i'm a computer science student. This website is a side project for fun and I want to
-        implement various things on here over the time.
+        My name is Luca Rahm, i'm a computer science student. This website is just for fun and I want to implement various things on here over time.
     </p>
     <h2>Here are some of my planned features:</h2>
     <ul>

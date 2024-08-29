@@ -5,15 +5,17 @@
     import {Button} from "$lib/components/ui/button/index.js";
     import {CircleUser} from "lucide-svelte";
 
-    export let loggedIn;
+    export let loggedIn = false;
+    export let isAdmin = false;
 
     const public_pages = [
         {name: 'Home', href: '/',},
         {name: 'About', href: '/about',},
     ];
 
-    const protected_pages = [
+    const admin_pages = [
         {name: 'Dashboard', href: '/dashboard',},
+        {name: 'Register', href: '/register',},
     ];
 
     $: currentRoute = $page.url.pathname;
@@ -36,6 +38,14 @@
                         <a href={pub_page.href} class="hover:font-bold rounded-lg">{pub_page.name}</a>
                     </li>
                 {/each}
+                {#if isAdmin}
+                    {#each admin_pages as admin_page}
+                        <li class="block py-2 px-3 rounded hover:bg-slate-100 md:hover:bg-transparent"
+                            class:active={currentRoute === admin_page.href}>
+                            <a href={admin_page.href} class="hover:font-bold rounded-lg">{admin_page.name}</a>
+                        </li>
+                    {/each}
+                {/if}
             </ul>
         </div>
         <div class="flex gap-3 items-center md:order-3 space-x-3 md:space-x-0 ">

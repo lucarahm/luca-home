@@ -14,7 +14,7 @@
 </script>
 
 <ModeWatcher defaultMode="light"/>
-<Header loggedIn={data.loggedIn}/>
+<Header loggedIn={data.loggedIn} isAdmin={data.isAdmin}/>
 <div class="p-4 max-w-screen-xl items-center mx-auto">
     <slot></slot>
 </div>

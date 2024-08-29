@@ -25,9 +25,9 @@
     const {form: formData, enhance: enhance, message: message, errors: errors, delayed: delayed} = form;
 </script>
 
-{#if dev}
-    <SuperDebug data={formData}/>
-{/if}
+<!--{#if dev}-->
+<!--    <SuperDebug data={formData}/>-->
+<!--{/if}-->
 
 {#if $message}<h3>{$message}</h3>{/if}
 
