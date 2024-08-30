@@ -45,6 +45,16 @@ export const signUpSchema = userSchema.pick({
     email: true,
 })
 
+export const userUpdateSchema = userSchema.pick({
+    firstName: true,
+    lastName: true,
+    username: true,
+    password: true,
+    email: true,
+}).partial({
+    password: true,
+})
+
 export const loginSchema = userSchema.pick({
     username: true,
     password: true,
