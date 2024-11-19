@@ -1,5 +1,4 @@
 <script>
-    import * as Card from "$lib/components/ui/card";
     import {Button} from "$lib/components/ui/button/index.js";
     import {asciiApe} from "$lib/other/ascii-art.js";
 
