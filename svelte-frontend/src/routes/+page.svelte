@@ -1,13 +1,23 @@
 <script>
     import * as Card from "$lib/components/ui/card";
     import {Button} from "$lib/components/ui/button/index.js";
+    import {asciiApe} from "$lib/other/ascii-art.js";
 
     export let data;
 
     $: isLoggedIn = data.loggedIn
+
+    // Easter egg for devs
+    console.log(asciiApe)
+
 </script>
 
-
+<h1 class="text-4xl font-bold text-center text-gradient bg-clip-text bg-gradient-to-r from-teal-400 via-cyan-500 to-purple-600">
+    Welcome to <span class="text-red-500">/root</span>!
+</h1>
+<p class="mt-2 text-gray-600 dark:text-gray-400 text-center">
+    Still gotta think of something funny for here
+</p>
 <h2 class="font-bold text-2xl mb-4">
     What do you want to do?
 </h2>
