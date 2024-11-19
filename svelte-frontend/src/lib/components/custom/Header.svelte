@@ -18,6 +18,10 @@
         {name: 'Register', href: '/register',},
     ];
 
+    const user_pages = [
+        {name: 'WG', href: '/wg'},
+    ];
+
     $: currentRoute = $page.url.pathname;
 </script>
 
@@ -38,6 +42,14 @@
                         <a href={pub_page.href} class="hover:font-bold rounded-lg">{pub_page.name}</a>
                     </li>
                 {/each}
+                {#if loggedIn}
+                    {#each user_pages as user_page}
+                        <li class="block py-2 px-3 rounded hover:bg-slate-100 md:hover:bg-transparent"
+                            class:active={currentRoute === user_page.href}>
+                            <a href={user_page.href} class="hover:font-bold rounded-lg">{user_page.name}</a>
+                        </li>
+                    {/each}
+                {/if}
                 {#if isAdmin}
                     {#each admin_pages as admin_page}
                         <li class="block py-2 px-3 rounded hover:bg-slate-100 md:hover:bg-transparent"
